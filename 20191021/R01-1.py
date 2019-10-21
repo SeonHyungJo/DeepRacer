@@ -17,13 +17,13 @@ def reward_function(params):
   if distance_from_center <= 0.1 * track_width:
 	  reward = 1
   elif distance_from_center <= 0.2 * track_width:
-		reward = 0.8
+		reward = 0.9
   elif distance_from_center <= 0.3 * track_width:
 		reward = 0.5
   elif distance_from_center <= 0.4 * track_width:
 		reward = 0.1
   else:
-		reward = 1e-3
+		reward = 1e-6
 
   # Steering function
   if steering > MAXIMUM_STEERING_ANGLE / 2 and speed > SPEED_THRESHOLD / 2:
