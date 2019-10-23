@@ -1,8 +1,6 @@
 import math
-PREV_SPEED = 0
 
 def reward_function(params):
-  global PREV_SPEED
   SPEED_THRESHOLD = 5
   
   prev_waypoint_index = params['closest_waypoints'][0]
@@ -36,14 +34,6 @@ def reward_function(params):
   # Heading
   if abs(heading - waypoint_angle) > 5 :
     reward *= 1e-3
-  elif waypoint_angle - next_waypoint_angle < 5:
-    if speed >= PREV_SPEED:
-      reward *= 1
-    else:
-      reward *= 0.5
-
-  if abs(waypoint_angle - next_waypoint_angle) > abs(steering):
-    reward *= 1e-3
 
   # Current Angle
   if waypoint_angle * steering < 0:
@@ -58,11 +48,9 @@ def reward_function(params):
       reward *= 1
 
   # Next Angle
-  if abs(next_waypoint_angle - waypoint_angle - heading) + 5 > abs(steering):
+  if abs(next_waypoint_angle - heading) + 5 > abs(steering):
       reward *= 1
   else:
       reward *= 1e-3
-
-  PREV_SPEED = speed
 
   return float(reward)
